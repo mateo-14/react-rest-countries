@@ -1,0 +1,121 @@
+.detail-country-main {
+  margin-top: 0.5em;
+  padding: 0 1em;
+}
+
+.detail-country__back-btn {
+  font-family: 'Nunito Sans', sans-serif;
+  outline: 0;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  padding: 0.6em 2.5em;
+  background: 0;
+  font-weight: 600;
+  display: inline-flex;
+  color: var(--light-text);
+  fill: var(--light-text);
+  cursor: pointer;
+}
+
+.detail-country {
+  margin-top: 4em;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-country__back-btn svg {
+  margin-right: 0.5em;
+}
+
+.detail-country__info-wrapper {
+  margin: 2em 0;
+}
+
+.detail-country__name {
+  margin: 0;
+  font-weight: 800;
+}
+
+.detail-country__info {
+  font-weight: 300;
+  margin-bottom: 2em;
+  line-height: 2rem;
+}
+
+.detail-country__info strong {
+  font-weight: 600;
+}
+
+.border-countries__text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.border-countries__list {
+  margin-top: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.border-countries__item {
+  margin: 0 1em 0.8em 0;
+  padding: 0.5em 1em;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .detail-country__back-btn {
+  background: var(--dark-elements);
+  color: var(--white);
+  fill: var(--white);
+  box-shadow: 0 0 0 3px hsla(208, 27%, 14%, 0.2);
+}
+
+.dark .detail-country__name,
+.dark .detail-country__info,
+.dark .border-countries__text {
+  color: var(--white);
+}
+
+.dark .border-countries__item {
+  background: var(--dark-elements);
+  color: var(--white);
+  box-shadow: 0 0 0 3px hsla(208, 27%, 14%, 0.2);
+}
+
+@media screen and (min-width: 700px) {
+  .detail-country__back-btn {
+    margin-top: 2em;
+  }
+
+  .detail-country {
+    margin-top: 1em;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .detail-country__img-container {
+    flex: 3;
+    margin-right: 6em;
+  }
+
+  .detail-country__info-wrapper {
+    flex: 4;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .detail-country__name {
+    width: 100%;
+  }
+
+  .detail-country__info {
+    flex: 2;
+    margin-right: 1em;
+  }
+
+  .border-countries {
+    width: 100%;
+  }
+}

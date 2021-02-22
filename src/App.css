@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+.content {
+  padding: 0 1em;
+  margin: 2em 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
+  padding: 1.4em 1em;
+  box-shadow: 0px 2px rgba(0, 0, 0, 0.05);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  box-sizing: content-box;
 }
 
-.App-link {
-  color: #61dafb;
+.header a {
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.header__title {
+  font-weight: 800;
+  margin: 0;
+  color: var(--light-text);
+  font-size: 0.9rem;
+}
+
+.header__dark-mode-toggler {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  padding: 0.6em 0;
+  outline: 0;
+  background: 0;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  color: var(--light-text);
+  fill: var(--light-text);
+}
+
+.header__dark-mode-toggler span {
+  margin-left: 0.6em;
+}
+
+.dark .header {
+  background-color: var(--dark-elements);
+  box-shadow: none;
+}
+
+.dark .header__title {
+  color: var(--white);
+}
+
+.dark .header__dark-mode-toggler {
+  color: var(--white);
+  fill: var(--white);
+}
+
+@media screen and (min-width: 600px) {
+  .header {
+    padding: 1.2em 2.8em;
   }
-  to {
-    transform: rotate(360deg);
+
+  .header__title {
+    font-size: 1.3rem;
+  }
+
+  .content {
+    padding: 0 2.8em;
   }
 }
