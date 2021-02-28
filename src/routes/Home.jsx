@@ -7,7 +7,6 @@ const Home = () => {
   const [countries, setCountries] = useState([]);
   const [isSelectVisible, setIsSelectVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSerachValue] = useState('');
   const timeoutRef = useRef(null);
 
   const fetchCountries = async (region, searchQuery) => {
@@ -32,23 +31,6 @@ const Home = () => {
     fetchCountries();
   }, [setCountries]);
 
-  useEffect(() => {
-    if (timeoutRef.current) {
-      clearInterval(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-
-    if (searchValue.trim().length > 0 && !isLoading) {
-      timeoutRef.current = setTimeout(() => {
-        fetchCountries(null, searchValue);
-      }, 500);
-    }
-
-    return () => {
-      clearInterval(timeoutRef.current);
-    };
-  }, [searchValue]);
-
   const handleSelectClick = () => {
     setIsSelectVisible(!isSelectVisible);
   };
@@ -60,7 +42,17 @@ const Home = () => {
   };
 
   const handleSearchInputChange = ({ currentTarget }) => {
-    setSerachValue(currentTarget.value);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    if (currentTarget.value.trim().length > 0) {
+      timeoutRef.current = setTimeout(() => {
+        fetchCountries(null, currentTarget.value.trim());
+      }, 500);
+    } else if (currentTarget.value.length === 0) {
+      fetchCountries();
+    }
   };
 
   return (
@@ -81,7 +73,7 @@ const Home = () => {
             className="search-form__input"
             placeholder="Search for a country"
             onChange={handleSearchInputChange}
-            value={searchValue}
+            defaultValue=""
           ></input>
         </div>
         <div className="search-form__select-container">
