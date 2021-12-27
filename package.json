@@ -2,6 +2,7 @@
   "name": "react-countries",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mateo-14.github.io/react-rest-countries/",
   "dependencies": {
     "axios": "^0.24.0",
     "react": "^17.0.2",
