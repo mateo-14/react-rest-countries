@@ -1,20 +1,20 @@
 import { Link } from 'react-router-dom';
-import './HomeCountry.css';
+import './CountryCard.css';
 
-const HomeCountry = ({ country }) => {
+function CountryCard({ country }) {
   return (
     <Link
       to={{
-        pathname: `/country/${country.name.toLowerCase()}`,
-        state: { country },
+        pathname: `/country/${country.name.common.toLowerCase()}`,
       }}
+      state={{country}}
     >
       <article className="country">
         <div className="country__img-container">
-          <img src={country.flag} alt={`${country.name} flag`} width="100%" className="country__img"></img>
+          <img src={country.flags.svg} alt={`${country.name.common} flag`} width="100%" className="country__img"></img>
         </div>
         <div className="country__info-wrapper">
-          <h2 className="country__name">{country.name}</h2>
+          <h2 className="country__name">{country.name.common}</h2>
           <p className="country__info">
             <strong>Population: </strong>
             {country.population.toLocaleString()}
@@ -31,4 +31,4 @@ const HomeCountry = ({ country }) => {
   );
 };
 
-export default HomeCountry;
+export default CountryCard;

@@ -1,6 +1,5 @@
 .content {
-  padding: 0 1em;
-  margin: 2em 0;
+  padding: 4rem;
 }
 
 .header {
@@ -19,7 +18,7 @@
 .header__title {
   font-weight: 800;
   margin: 0;
-  color: var(--light-text);
+  color: var(--primary-text);
   font-size: 0.9rem;
 }
 
@@ -32,8 +31,8 @@
   border: 0;
   cursor: pointer;
   display: inline-flex;
-  color: var(--light-text);
-  fill: var(--light-text);
+  color: var(--primary-text);
+  fill: var(--primary-text);
 }
 
 .header__dark-mode-toggler span {
@@ -45,25 +44,12 @@
   box-shadow: none;
 }
 
-.dark .header__title {
-  color: var(--white);
-}
-
-.dark .header__dark-mode-toggler {
-  color: var(--white);
-  fill: var(--white);
-}
-
 @media screen and (min-width: 600px) {
   .header {
-    padding: 1.2em 2.8em;
+    padding: 1.2rem 2.8rem;
   }
 
   .header__title {
     font-size: 1.3rem;
-  }
-
-  .content {
-    padding: 0 2.8em;
   }
 }
