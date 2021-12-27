@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, HashRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Home from './routes/Home';
 import Country from './routes/Country';
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <header className="header">
           <Link to="/">
             <h1 className="header__title">Where in the world?</h1>
@@ -57,7 +57,7 @@ function App() {
             <Route path="/country/:name" element={<Country />} />
           </Routes>
         </div>
-      </BrowserRouter>
+      </HashRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
