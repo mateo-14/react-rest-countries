@@ -1,32 +1,23 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Loader from '../components/Loader';
+import { getCountry } from '../services/countriesService';
 import './Country.css';
 
 const Country = () => {
   const { name } = useParams();
   const navigate = useNavigate();
-  const [country, setCountry] = useState();
+  const { state } = useLocation();
+  const { data, isLoading } = useQuery(['country', name], () => getCountry(name), {
+    initialData: state?.country,
+  });
 
-  useEffect(() => {
-    console.log(country, name);
-    if (!country && name) {
-      const fetchCountry = async () => {
-        try {
-          const { data } = await axios.get(`https://restcountries.eu/rest/v2/name/${name}`);
-          if (data.length > 0) {
-            setCountry(data[0]);
-          }
-        } catch {}
-      };
-      fetchCountry();
-    }
-  }, [country, name, setCountry]);
+  console.log(data);
 
   const handleBackButton = () => navigate(-1);
 
   return (
-    <main className="detail-country-main">
+    <main>
       <button onClick={handleBackButton} className="detail-country__back-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -40,51 +31,67 @@ const Country = () => {
         </svg>
         Back
       </button>
-      {country && (
-        <article className="detail-country">
-          <div className="detail-country__img-container">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        data && (
+          <article className="detail-country">
             <img
-              src={country.flag}
-              alt={`${country.name} flag`}
-              width="100%"
+              src={data.flags.svg}
+              alt={`${data.name.common} flag`}
               className="detail-country__img"
             ></img>
-          </div>
-          <div className="detail-country__info-wrapper">
-            <h2 className="detail-country__name">{country.name}</h2>
-            <p className="detail-country__info">
-              <strong>Native Name: </strong>
-              {country.nativeName}
-              <br></br>
-              <strong>Population: </strong>
-              {country.population.toLocaleString()}
-              <br></br>
-              <strong>Region: </strong>
-              {country.region}
-              <br></br>
-              <strong>Capital: </strong>
-              {country.capital}
-            </p>
-            <p className="detail-country__info">
-              <strong>Top Level Domain: </strong>
-              {country.topLevelDomain.join(', ')}
-              <br></br>
-              <strong>Currencies: </strong>
-              {country.currencies.map((currency) => currency.name).join(', ')}
-              <br></br>
-              <strong>Languages: </strong>
-              {country.languages.map((language) => language.name).join(', ')}
-            </p>
-            <div className="border-countries">
-              <strong className="border-countries__text">Border Countries:</strong>
-              <div className="border-countries__list">
-                {country.borders.map((borderCountry) => (
-                  <span className="border-countries__item">{borderCountry}</span>
-                ))}
+            <div className="detail-country__info-wrapper">
+              <h2 className="detail-country__name">{data.name.common}</h2>
+              <div className="detail-country__lists">
+                <ul className="detail-country__info">
+                  <li>
+                    <strong>Native Name: </strong>
+                    {data.name.nativeName[Object.keys(data.name.nativeName)[0]].common}
+                  </li>
+                  <li>
+                    <strong>Population: </strong>
+                    {data.population.toLocaleString()}
+                  </li>
+                  <li>
+                    <strong>Region: </strong>
+                    {data.region}
+                  </li>
+                  <li>
+                    <strong>Capital: </strong>
+                    {data.capital}
+                  </li>
+                </ul>
+                <ul className="detail-country__info">
+                  <li>
+                    <strong>Top Level Domain: </strong>
+                    {data.tld.join(', ')}
+                  </li>
+                  <li>
+                    <strong>Currencies: </strong>
+                    {Object.keys(data.currencies)
+                      .map((currency) => data.currencies[currency].name)
+                      .join(', ')}
+                  </li>
+                  <li>
+                    <strong>Languages: </strong>
+                    {Object.keys(data.languages)
+                      .map((language) => data.languages[language])
+                      .join(', ')}
+                  </li>
+                </ul>
+              </div>
+              <div className="border-countries">
+                <strong className="border-countries__text">Border Countries:</strong>
+                <div className="border-countries__list">
+                  {data.borders?.map((borderCountry) => (
+                    <span className="border-countries__item">{borderCountry}</span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </article>
+          </article>
+        )
       )}
     </main>
   );
