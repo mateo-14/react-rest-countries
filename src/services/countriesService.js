@@ -21,6 +21,6 @@ export async function getCountriesRegion(region) {
 }
 
 export async function getCountry(name) {
-  const { data } = await axios.get(`${API}/name/${name}`);
+  const { data } = await axios.get(`${API}/name/${name}?fullText=true`);
   if (data?.length > 0) return data[0];
 }
