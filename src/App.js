@@ -1,5 +1,5 @@
 import './App.css';
-import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Home from './routes/Home';
 import Country from './routes/Country';
@@ -20,7 +20,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <header className="header">
         <Link to="/">
           <h1 className="header__title">Where in the world?</h1>
@@ -48,14 +48,10 @@ function App() {
       </header>
 
       <div className="content">
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/country/:name">
-            <Country />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/country/:name" element={<Country />} />
+        </Routes>
       </div>
     </Router>
   );

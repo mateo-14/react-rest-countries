@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Country.css';
 
 const Country = () => {
-  const { state } = useLocation();
   const { name } = useParams();
-  const { goBack } = useHistory();
-  const [country, setCountry] = useState(state?.country);
+  const navigate = useNavigate();
+  const [country, setCountry] = useState();
 
   useEffect(() => {
     console.log(country, name);
@@ -23,9 +22,12 @@ const Country = () => {
       fetchCountry();
     }
   }, [country, name, setCountry]);
+
+  const handleBackButton = () => navigate(-1);
+
   return (
     <main className="detail-country-main">
-      <button onClick={goBack} className="detail-country__back-btn">
+      <button onClick={handleBackButton} className="detail-country__back-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -41,7 +43,12 @@ const Country = () => {
       {country && (
         <article className="detail-country">
           <div className="detail-country__img-container">
-            <img src={country.flag} alt={`${country.name} flag`} width="100%" className="detail-country__img"></img>
+            <img
+              src={country.flag}
+              alt={`${country.name} flag`}
+              width="100%"
+              className="detail-country__img"
+            ></img>
           </div>
           <div className="detail-country__info-wrapper">
             <h2 className="detail-country__name">{country.name}</h2>
