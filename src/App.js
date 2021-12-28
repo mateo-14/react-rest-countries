@@ -24,7 +24,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <HashRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter>
         <header className="header">
           <Link to="/">
             <h1 className="header__title">Where in the world?</h1>
